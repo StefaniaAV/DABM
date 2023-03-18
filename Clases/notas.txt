@@ -1,0 +1,33 @@
+#crear un entorno vitural me permite suubir todas las librerias que necesito sin la necesidad de ir instalando todo
+# https://www.programaenpython.com/miscelanea/crear-entornos-virtuales-en-python/
+
+#aprender a capturar dtos y manejar elementos de hadware
+#seria llega la informacion por tramos, van llegando serialmente 
+#arduino permite transmitir informacion del puerto 
+
+#voltaje digital, se mueve en dos estados alto - bajo ; 0 - 1 ; puede ser constante
+#voltaje analogo, variación continua en el tiempo 
+
+#que es un circuito? trayecto cerrado donde circulan electrones, flujo del electrones -> corriente, el voltaje es la fuerza que me desprende los electronces de los atomos
+# generar un flujo de electrones y controlarlo (diseño de un circuito)
+#en una pista la resistencia es la curva que se opone al flujo 
+
+#ground punto de 0v punto de partida/cierre del circuito
+#5v son de salida
+#arduino tiene un regulador de voltaje para que todo funcione a 5v
+
+#procesador CPU -> memoria -> reloj del sistema -> periféricos
+
+
+#Para encender algo de 120V (Un bombillo) con el mismo control se deb ehacer una etapa de potneica que permita amplificar 
+#se debe hacer un relevo que es un switch de alta potencia para poner el pin del arduino al relevo(caja)
+#el arudino tiene un switch interno
+#el pin comun de relevo se pondria al optor pin de la toma del bombillo y esta unido dentro del arduino, se encuentra conenctado al abierto
+#contorl de baja potencia a alta potencia
+#Para encerder un led con cierto % de potencia de iluminacion se hace con el PWM
+#pulse width modulation
+#se pasa el 0 o 1 a un frecuencia diferente el led toma el promediode la señal baja entre menor sea el tiempo de prendio el promedio es más pequeño
+#ejemplos (bomba de aire, dispensador de medicina)
+
+
+#lectura en python para recibir el valor de la fotoresisitencia para dalre una orden al led
