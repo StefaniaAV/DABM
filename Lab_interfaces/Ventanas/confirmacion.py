@@ -1,16 +1,15 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel,QLineEdit, QPushButton
-import csv
 
-class Denegado(QWidget):
+class Conf(QWidget):
     def __init__ (self):
         super().__init__()
         
         layout = QVBoxLayout()
-        self.setWindowTitle("Acceso denegado")
+        self.setWindowTitle("Confirmación")
         self.setGeometry(120, 120, 100, 100)
         
-        label_combo = QLabel("Los datos ingresados son incorrectos", self)
+        label_combo = QLabel("El usuario se registró con éxito", self)
         label_combo.setGeometry(20, 10, 500, 20)
         layout.addWidget(label_combo)
         
@@ -53,7 +52,7 @@ if __name__ == '__main__':
     stylesheets = load_stylesheets()
     app.setStyleSheet(stylesheets)
     
-    main_window = Denegado()
+    main_window = Conf()
     main_window.show()
     
     sys.exit(app.exec()) 

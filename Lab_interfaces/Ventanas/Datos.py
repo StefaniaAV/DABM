@@ -25,7 +25,7 @@ class MainWindow(QWidget):
     def __init__ (self): #para herencia
         
         super().__init__()
-        #self.arduino = SerialPort("COM5", 9600)
+        self.arduino = SerialPort("COM3", 9600)
         layout = QVBoxLayout()
         
         #self.setLayout(layout)
@@ -39,8 +39,10 @@ class MainWindow(QWidget):
         
         #insertar una imagen
         label_image = QLabel(self)
-        label_image.setGeometry(25, 40, 220, 220)
-        pixmap = QPixmap("Clases\interfaces\logo.png")
+        label_image.setGeometry(25, 50, 300, 155)
+        pixmap = QPixmap("Lab_interfaces\Ventanas\Led.png")
+        
+        
         label_image.setPixmap(pixmap)
         layout.addWidget(label_image)
         
@@ -77,7 +79,11 @@ class MainWindow(QWidget):
         layout.addWidget(self.sld2)
         layout.addWidget(self.result_label2)
     
+        #self.edit_valor = QLineEdit()
+        #self.edit_valor.setGeometry(140, 380, 100, 20)
+        #layout.addWidget(self.edit_valor)
         
+
     
         btn_ingresar = QPushButton('Ingresar') #creacion de los botones
         btn_ingresar.clicked.connect(self.auth)
@@ -94,19 +100,21 @@ class MainWindow(QWidget):
         self.result_label2.setText(f'{value * 5 / 100}')
         
     def auth(self):
-        minimo = self.sld.value()* 5 / 100
-        maximo = self.sld2.value()* 5 / 100
+        maximo = self.sld.value()* 5 / 100
         
+        minimo = self.sld2.value()* 5 / 100
+        print(maximo, minimo)
         while (True):
-            print("sd")
-            time.sleep(5)
-        #     data = float(self.findarduino.read_data()) #Para leer el valor del divisor de la fotoresistencia
-        #     valor = num_to_range(data, minimo, maximo) 
-        #     #print(data, valor)
-        # # print(valor)
-        #     self.arduino.write(struct.pack(">B",int(valor))) #Convertir valor de entero a bytes y escribir en el puerto
+            data = float(self.arduino.read_data()) #Para leer el valor del divisor de la fotoresistencia
+            #self.edit_valor.setText("hola")
+            #self.edit_valor.update()
+            valor = num_to_range(data, minimo, maximo) 
+            print(valor)
+            #print(data, valor)
+            # print(valor)
+            self.arduino.write(struct.pack(">B",int(valor))) #Convertir valor de entero a bytes y escribir en el puerto
             
-        #     time.sleep(0.05)
+            time.sleep(0.05)
             
         
         
@@ -139,13 +147,13 @@ def load_stylesheets():
     """
         
 
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
     
-#     stylesheets = load_stylesheets()
-#     app.setStyleSheet(stylesheets)
+    stylesheets = load_stylesheets()
+    app.setStyleSheet(stylesheets)
     
-#     main_window = MainWindow()
-#     main_window.show()
+    main_window = MainWindow()
+    main_window.show()
     
-#     sys.exit(app.exec()) 
+    sys.exit(app.exec()) 

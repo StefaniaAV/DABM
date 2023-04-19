@@ -4,8 +4,11 @@ import csv
 import os
 
 class RegisterWindow(QWidget):
-    def __init__(self):
+    def __init__(self, usuariorep, usuarioexito):
         super().__init__()
+        self.urep = usuariorep
+        self.login = None
+        self.exito = usuarioexito
         self.init_ui()
     
     def init_ui(self):
@@ -14,17 +17,13 @@ class RegisterWindow(QWidget):
         
         layout = QVBoxLayout() #ventana vertical 
         
-        label_combo = QLabel("Ingresar nuevo usuario, contraseña y tipo de perfil", self)
-        label_combo.setGeometry(20, 5, 500, 20)
-        layout.addWidget(label_combo)
-        
-        label_username = QLabel('Usuario:')
+        label_username = QLabel('Nuevo usuario:')
         layout.addWidget(label_username) #adicionar a la ventana
         
         self.edit_user_name = QLineEdit() #para escribir en el cuadro de texto 
         layout.addWidget(self.edit_user_name)
         
-        label_password = QLabel('Contraseña:')
+        label_password = QLabel('Nueva contraseña:')
         layout.addWidget(label_password)
         
         self.edit_password = QLineEdit()
@@ -36,16 +35,15 @@ class RegisterWindow(QWidget):
         
         self.edit_perfil = QLineEdit()
         layout.addWidget(self.edit_perfil)
-
-
         
+        btn_registrar = QPushButton('Registrarme') #creacion de los botones
+        btn_registrar.clicked.connect(self.auth)
+        layout.addWidget(btn_registrar)
         
-        btn_ingresar = QPushButton('Registrarme') #creacion de los botones
-        btn_ingresar.clicked.connect(self.auth)
+        btn_ingresar = QPushButton('Ingresar') #creacion de los botones
+        btn_ingresar.clicked.connect(self.ing)
         layout.addWidget(btn_ingresar)
-        
-        
-        
+                
         self.setLayout(layout)
         
     def auth(self):
@@ -55,14 +53,38 @@ class RegisterWindow(QWidget):
         self.perfil = self.edit_perfil.text()
 
         self.datos = [self.username, self.password, self.perfil]
-        self.datoss = []
-        self.datoss.append(self.datos)
         
         cwd = os.getcwd()
         archivo = cwd + "/Lab_interfaces/Archivos/usuarios.csv"
-        with open(archivo,"a", newline = "") as file: 
-            writer = csv.writer(file, delimiter =",")
-            writer.writerow(self.datoss)
+        with open(archivo,"r") as file:  #la r es solo para read
+            reader = csv.reader(file, delimiter = ",")
+            header = next(reader)
+            #self.username = None
+            for row in reader:
+                if row[0] == self.username:
+                    self.urep.show()
+                    print("Repetido")
+                    return
+                        
+            cwd = os.getcwd()
+            archivo = cwd + "/Lab_interfaces/Archivos/usuarios.csv"
+            print(self.datos)
+            with open(archivo,"a", newline = "") as file: 
+                writer = csv.writer(file, delimiter =",")
+                writer.writerow(self.datos)
+        self.exito.show()
+                    
+    def ing(self):
+        #self.l.show()
+        print("Ingresar")
+        self.close()
+        self.login.show()
+       
+        
+    def registerlogin(self, loginwindow):
+        self.login = loginwindow
+        
+        
         
     
 def load_stylesheet():
